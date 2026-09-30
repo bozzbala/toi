@@ -7,18 +7,18 @@
 <meta name="description" content="Темірлан мен Мадинаның үйлену тойына шақырту — 26 қазан 2026, 17:00, AQ-OTAY, Алматы">
 <meta property="og:title" content="Темірлан &amp; Мадина — шақырту">
 <meta property="og:description" content="26 қазан 2026 · 17:00 · AQ-OTAY, Алматы">
-<meta property="og:image" content="https://bozzbala.github.io/toi/images/hero-hands.webp">
+<meta property="og:image" content="https://bozzbala.github.io/toi/images/og-card.jpg">
 <meta property="og:url" content="https://bozzbala.github.io/toi/">
 <meta property="og:type" content="website">
 <meta name="theme-color" content="#d39a3a">
 <script>
 /* Two versions, one source. ?nophoto (and the separate no-face build) shows a photo without the bride's face
    (her face isn't shown before беташар); the regular link keeps the couple photo. Only the chosen one is downloaded. */
-var NOPHOTO = true;
-// EXPERIMENT (local): ?text -> no photo, names on a framed wine sheet
-var TEXTONLY = /[?&]text(=|&|$)/.test(location.search);
+var NOPHOTO = /[?&]nophoto(=|&|$)/.test(location.search);
+// ?text -> no photo at all, names on a framed wine sheet (always on in the bozzbala/toi build)
+var TEXTONLY = true;
 if (TEXTONLY) document.documentElement.classList.add('textonly');
-var HERO = { src: 'images/hero-hands.webp', pos: '88% 50%', side: '50% 40%' };
+var HERO = null;
 if (!TEXTONLY) (function(){ var l = document.createElement('link'); l.rel = 'preload'; l.as = 'image'; l.href = HERO.src; document.head.appendChild(l); })();
 function heroPhoto(img, key){ if (TEXTONLY) { img.remove(); return; } img.src = HERO.src; img.style.objectPosition = HERO[key]; }
 </script>
@@ -174,7 +174,7 @@ body.opened .hero-img{transform:scale(1)}
 .hero-top{position:absolute;top:34px;left:0;right:0;z-index:2;text-align:center}
 .hero-top .eyebrow{color:rgba(255,255,255,.88)}
 .hero-content{position:absolute;left:0;right:0;bottom:11%;z-index:2;text-align:center;padding:0 20px}
-/* ---- EXPERIMENT ?text: typographic first screen, a framed wine sheet ---- */
+/* ---- ?text: typographic first screen, a framed wine sheet (default in the toi build) ---- */
 .hero-orn{display:none}
 html.textonly .hero,html.textonly .side{background:radial-gradient(ellipse at 50% 42%,#a3343e 0%,#6e1f29 55%,#431118 100%)}
 html.textonly .hero::before,html.textonly .side::before{content:'';position:absolute;inset:18px;z-index:1;pointer-events:none;
