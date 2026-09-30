@@ -15,9 +15,12 @@
 /* Two versions, one source. ?nophoto (and the separate no-face build) shows a photo without the bride's face
    (her face isn't shown before беташар); the regular link keeps the couple photo. Only the chosen one is downloaded. */
 var NOPHOTO = true;
+// EXPERIMENT (local): ?text -> no photo, names on a framed wine sheet
+var TEXTONLY = /[?&]text(=|&|$)/.test(location.search);
+if (TEXTONLY) document.documentElement.classList.add('textonly');
 var HERO = { src: 'images/hero-hands.webp', pos: '88% 50%', side: '50% 40%' };
-(function(){ var l = document.createElement('link'); l.rel = 'preload'; l.as = 'image'; l.href = HERO.src; document.head.appendChild(l); })();
-function heroPhoto(img, key){ img.src = HERO.src; img.style.objectPosition = HERO[key]; }
+if (!TEXTONLY) (function(){ var l = document.createElement('link'); l.rel = 'preload'; l.as = 'image'; l.href = HERO.src; document.head.appendChild(l); })();
+function heroPhoto(img, key){ if (TEXTONLY) { img.remove(); return; } img.src = HERO.src; img.style.objectPosition = HERO[key]; }
 </script>
 <style>
 /* Every face below covers the Kazakh letters (Ә Ғ Қ Ң Ө Ұ Ү Һ І) via its cyrillic-ext subset. */
@@ -171,6 +174,18 @@ body.opened .hero-img{transform:scale(1)}
 .hero-top{position:absolute;top:34px;left:0;right:0;z-index:2;text-align:center}
 .hero-top .eyebrow{color:rgba(255,255,255,.88)}
 .hero-content{position:absolute;left:0;right:0;bottom:11%;z-index:2;text-align:center;padding:0 20px}
+/* ---- EXPERIMENT ?text: typographic first screen, a framed wine sheet ---- */
+.hero-orn{display:none}
+html.textonly .hero,html.textonly .side{background:radial-gradient(ellipse at 50% 42%,#a3343e 0%,#6e1f29 55%,#431118 100%)}
+html.textonly .hero::before,html.textonly .side::before{content:'';position:absolute;inset:18px;z-index:1;pointer-events:none;
+  border:1px solid rgba(240,201,110,.55);outline:1px solid rgba(240,201,110,.22);outline-offset:6px;border-radius:2px;
+  background-image:radial-gradient(rgba(255,220,170,.14) 1px,transparent 1.3px);background-size:22px 22px}
+html.textonly .hero::after,html.textonly .side::after{background:radial-gradient(ellipse at 50% 45%,transparent 48%,rgba(30,4,8,.42))}
+html.textonly .hero-content,html.textonly .side-content{bottom:auto;top:50%;transform:translateY(-50%)}
+html.textonly .hero-top{top:48px}
+html.textonly .hero-orn{display:block;margin:26px auto 0}
+.hero-orn path,.hero-orn circle{stroke:var(--gold-l)}
+.hero-orn circle{fill:var(--gold-l)}
 .names{font-family:var(--script);font-weight:400;line-height:.98;font-size:clamp(58px,17vw,92px);text-shadow:0 4px 24px rgba(0,0,0,.25)}
 .names .amp{display:block;font-family:var(--serif);font-size:.4em;color:var(--gold-l);margin:.12em 0 .02em;letter-spacing:.1em}
 .write{display:block;clip-path:inset(-10% 100% -10% 0);transition:clip-path 1s cubic-bezier(.55,.1,.25,1);transition-delay:var(--d,0s)}
@@ -404,6 +419,7 @@ textarea.inp{min-height:88px;resize:vertical}
       <span class="write" style="--d:1.05s">Мадина</span>
     </div>
     <div class="hero-date fade-late" style="--d:1.7s">26<i>·</i>10<i>·</i>2026</div>
+    <svg class="ornament hero-orn" viewBox="0 0 210 30" aria-hidden="true"><path pathLength="1" d="M4 15 C40 15 60 8 84 15"/><path pathLength="1" d="M206 15 C170 15 150 8 126 15"/><path pathLength="1" d="M105 3 C96 11 96 19 105 27 C114 19 114 11 105 3Z"/><circle pathLength="1" cx="90" cy="15" r="2"/><circle pathLength="1" cx="120" cy="15" r="2"/></svg>
   </div>
 </aside>
 
@@ -420,6 +436,7 @@ textarea.inp{min-height:88px;resize:vertical}
         <span class="write" style="--d:1.05s">Мадина</span>
       </h1>
       <div class="hero-date fade-late" style="--d:1.7s">26<i>·</i>10<i>·</i>2026</div>
+      <svg class="ornament hero-orn" viewBox="0 0 210 30" aria-hidden="true"><path pathLength="1" d="M4 15 C40 15 60 8 84 15"/><path pathLength="1" d="M206 15 C170 15 150 8 126 15"/><path pathLength="1" d="M105 3 C96 11 96 19 105 27 C114 19 114 11 105 3Z"/><circle pathLength="1" cx="90" cy="15" r="2"/><circle pathLength="1" cx="120" cy="15" r="2"/></svg>
     </div>
     <div class="scroll-cue"></div>
   </section>
